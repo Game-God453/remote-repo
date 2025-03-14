@@ -86,7 +86,7 @@ module ctrl(Op, Funct7, Funct3, Zero,
   // EXT_CTRL_UTYPE	      6'b000010
   // EXT_CTRL_JTYPE	      6'b000001
     assign EXTOp[5] = i_slli | i_srli | i_srai;
-    assign EXTOp[4] = IMMEDIATE | i_lw | i_jalr;      //I
+    assign EXTOp[4] = (IMMEDIATE & !i_slli & !i_srli & !i_srai) | i_lw | i_jalr;      //I
     assign EXTOp[3] = i_sw;      //S
     assign EXTOp[2] = BRANCH;       //B
     assign EXTOp[1] = LUI;         //U
@@ -107,7 +107,7 @@ module ctrl(Op, Funct7, Funct3, Zero,
     assign NPCOp[3] = 1'b0;
     assign NPCOp[2] = i_jalr;
     assign NPCOp[1] = i_jal;
-    assign NPCOp[0] = BRANCH;  //此处不直接&zero，在EX阶段进行
+    assign NPCOp[0] = BRANCH;  // 舜   直  &zero    EX 锥谓   
 
     // ALUOp
     assign ALUOp[4] = i_srl | i_srli | i_sra | i_srai;                                                                      
