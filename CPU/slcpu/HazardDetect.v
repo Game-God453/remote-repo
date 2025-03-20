@@ -8,7 +8,7 @@ module HazardDetect(
     output NPC_Write
     );
     
-    wire C = 1'b0;
+    wire C;
     
     assign C = MemRead && ((EX_rd == rs1) || (EX_rd == rs2));
     
